@@ -53,7 +53,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		SuperDepartment[] departments = { null, new IT(), new AdminDepartment(), new HrDepartment(), new TechDepartment() };
+		SuperDepartment[] departments = { new AdminDepartment(), new HrDepartment(), new TechDepartment() };
 
 		out.println();
 		for (SuperDepartment department : departments) {
