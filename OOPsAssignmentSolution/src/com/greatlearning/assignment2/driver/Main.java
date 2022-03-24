@@ -161,8 +161,7 @@ public class Main {
 		 * add as many department as we want that extends SuperDepartment
 		 * 
 		 */
-		SuperDepartment[] departments = { new SuperDepartment(), new AdminDepartment(), new HrDepartment(),
-				new TechDepartment() };
+		SuperDepartment[] departments = { new AdminDepartment(), new HrDepartment(), new TechDepartment() };
 
 		out.println();
 
