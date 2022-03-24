@@ -18,34 +18,38 @@ import static java.lang.System.out;
 
 public class Main {
 
-	//To store the total number of departments
+	// To store the total number of departments
 	private static int count;
 
-	//To convert a String to title case
+	// To convert a String to title case
 	private static String toTitleCase(String s) {
-		if(s != null) {
-			if(s.length()>1) {
-			
-				s = s.toLowerCase().trim();
+		if (s != null) {
+			s = s.trim();
+			if (s.length() > 1) {
+
+				s = s.toLowerCase();
 				String[] parts = s.split(" ");
 				StringBuilder sb = new StringBuilder(s.length());
-				for(String part: parts) {
-					sb.append(part.substring(0,1).toUpperCase())
-					   .append(part.substring(1));
-					sb.append(" ");
+				for (String part : parts) {
+					sb.append(part.substring(0, 1).toUpperCase()).append(part.substring(1));
+					if (parts.length > 1) {
+						sb.append(" ");
+					}
 				}
 				return sb.toString();
-			}else if(s.length()==1) {
+			} else if (s.length() == 1) {
 				return s.toUpperCase();
-			}else {
+			} else {
 				return "";
 			}
-			
-		}else {
+
+		} else {
 			throw new IllegalArgumentException("String cannot be null");
 		}
 	}
-	//As per problem statement we have to print new lines after printing each department details
+
+	// As per problem statement we have to print new lines after printing each
+	// department details
 	private static void printNewLine(int c) {
 		// For printing the new lines
 		while (c != 0) {
@@ -55,8 +59,9 @@ public class Main {
 	}
 
 	/*
-	 * This method is basically to print department details
-	 * Using enhanced instanceof operator (Java 13) to prevent ClassCastException and also to prevent type casting
+	 * This method is basically to print department details Using enhanced
+	 * instanceof operator (Java 13) to prevent ClassCastException and also to
+	 * prevent type casting
 	 * 
 	 */
 	private static boolean printDetails(SuperDepartment department) {
@@ -66,29 +71,38 @@ public class Main {
 				if (department instanceof HrDepartment hr) {
 					out.println(" Welcome to HR Department");
 					out.println(hr.doActivity().trim());
+					String getTodaysWorkHr = department.getTodaysWork().trim();
+					if (getTodaysWorkHr.contains("worksheet")) {
+						getTodaysWorkHr = getTodaysWorkHr.replace("worksheet", "timesheet");
+					}
+					out.println(getTodaysWorkHr);
 				} else {
-					out.println(" Welcome to " + department.departmentName());
+					out.println(" Welcome to " + department.departmentName().trim());
 				}
-				
-				if(department instanceof TechDepartment) {
+
+				if (department instanceof TechDepartment) {
 					String s = department.getTodaysWork().trim();
-					if(s.contains("module")) {
+					if (s.contains("module")) {
 						s = s.replace("module", "Module");
 					}
 					out.println(s);
-				}else {
-					out.println(department.getTodaysWork().trim());
+				} else if (department instanceof AdminDepartment) {
+					String getTodaysWorkAdmin = department.getTodaysWork().trim();
+					int lastIndexOfSpace= getTodaysWorkAdmin.lastIndexOf(" ");
+					getTodaysWorkAdmin = getTodaysWorkAdmin.substring(0,lastIndexOfSpace+1)+getTodaysWorkAdmin.substring(lastIndexOfSpace+1).toLowerCase();
+					out.println(getTodaysWorkAdmin);
 				}
-				
+
 				out.println(department.getWorkDeadLine().trim());
-				
+
 				if (department instanceof TechDepartment tech) {
-					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()));
+					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
 				}
-				
+
 				String isTodayAHoliday = department.isTodayAHoliday().trim();
-				out.println(isTodayAHoliday.substring(0,isTodayAHoliday.lastIndexOf(" ")+1)+Main.toTitleCase(isTodayAHoliday.substring(isTodayAHoliday.lastIndexOf(" ")+1)));
-				
+				int lastIndexOfSpace = isTodayAHoliday.lastIndexOf(" ");
+				out.println((isTodayAHoliday.substring(0, lastIndexOfSpace + 1)
+						+ Main.toTitleCase(isTodayAHoliday.substring(lastIndexOfSpace + 1))));
 				return true;
 			}
 		}
@@ -98,15 +112,15 @@ public class Main {
 	public static void main(String[] args) {
 
 		/*
-		 * Using arrays to promote type safety and avoid type casting problems
-		 * We can add as many department as we want that extends SuperDepartment
+		 * Using arrays to promote type safety and avoid type casting problems We can
+		 * add as many department as we want that extends SuperDepartment
 		 * 
 		 */
 		SuperDepartment[] departments = { new AdminDepartment(), new HrDepartment(), new TechDepartment() };
 
 		out.println();
-		
-		//for-each loop to iterate through each department
+
+		// for-each loop to iterate through each department
 		for (SuperDepartment department : departments) {
 			Main.count++;
 			boolean isDepartmentDetailsDisplayed = Main.printDetails(department);
