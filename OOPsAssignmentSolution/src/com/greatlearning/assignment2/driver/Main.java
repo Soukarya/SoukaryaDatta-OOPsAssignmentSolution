@@ -2,7 +2,7 @@
  * 
  * JDK : 17, JRE: 17
  * Author : Soukarya Datta
- * Version: 1.1.0
+ * Version: 1.2.2
  * Date: March 24, 2022
  * 
  */
@@ -49,8 +49,7 @@ public class Main {
 		}
 	}
 
-	// As per problem statement we have to print new lines after printing each
-	// department details
+	// As per problem statement we have to print new lines after printing each department details
 	private static void printNewLine(int c) {
 		// For printing the new lines
 		while (c != 0) {
@@ -76,8 +75,7 @@ public class Main {
 				// For HrDepartment
 				if (department instanceof HrDepartment hr) {
 
-					// storing the department name after removing all the trailing and leading
-					// whitespace
+					// storing the department name after removing all the trailing and leading whitespace
 					departmentName = hr.departmentName().trim();
 
 					lastIndexOfSpace = departmentName.indexOf(" ");
@@ -121,8 +119,6 @@ public class Main {
 
 					// displaying it to the console
 					out.println(stringAfterChange);
-
-					//out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
 				}
 
 				// For Admin Department only
@@ -145,7 +141,7 @@ public class Main {
 				// displaying the deadline details
 				out.println(department.getWorkDeadLine().trim());
 				
-				//mainly to print TechDepartment  specific methods
+				//mainly to print TechDepartment specific methods
 				if(department instanceof TechDepartment tech) {
 					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
 				}
@@ -165,9 +161,8 @@ public class Main {
 	public static void main(String[] args) {
 
 		/*
-		 * Using arrays to promote type safety and avoid type casting problems We can
+		 * Using arrays to promote type safety and avoid type casting problems. We can
 		 * add as many department as we want that extends SuperDepartment
-		 * 
 		 */
 		SuperDepartment[] departments = { new AdminDepartment(), new HrDepartment(), new TechDepartment() };
 
