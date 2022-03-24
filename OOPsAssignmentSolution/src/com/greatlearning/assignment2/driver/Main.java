@@ -2,7 +2,7 @@
  * 
  * JDK : 17, JRE: 17
  * Author : Soukarya Datta
- * Version: 1.0.7
+ * Version: 1.1.0
  * Date: March 24, 2022
  * 
  */
@@ -60,47 +60,92 @@ public class Main {
 
 	/*
 	 * This method is basically to print department details Using enhanced
-	 * instanceof operator (Java 13) to prevent ClassCastException and also to
+	 * instanceof operator (Java 14) to prevent ClassCastException and also to
 	 * prevent type casting
 	 * 
 	 */
 	private static boolean printDetails(SuperDepartment department) {
 
+		String stringAfterChange = "";
+		String departmentName = "";
+		int lastIndexOfSpace = -1;
 		if (department != null) {
 			if (department instanceof SuperDepartment) {
+
+				// For HrDepartment
 				if (department instanceof HrDepartment hr) {
-					out.println(" Welcome to HR Department");
+
+					//storing the department name after removing all the trailing and leading whitespace
+					departmentName = hr.departmentName().trim();
+					
+					lastIndexOfSpace = departmentName.indexOf(" ");
+					
+					// displaying the department name of the HR Department
+					out.println(" Welcome to " + (departmentName.substring(0, lastIndexOfSpace).toUpperCase()
+							+ departmentName.substring(lastIndexOfSpace)));
+
+					// This will print out team Lunch
 					out.println(hr.doActivity().trim());
-					String getTodaysWorkHr = department.getTodaysWork().trim();
-					if (getTodaysWorkHr.contains("worksheet")) {
-						getTodaysWorkHr = getTodaysWorkHr.replace("worksheet", "timesheet");
+
+					// storing updated string after removing trailing and leading whitespace
+					stringAfterChange = department.getTodaysWork().trim();
+
+					// Replacing worksheet work with timesheet in a string
+					if (stringAfterChange.contains("worksheet")) {
+						stringAfterChange = stringAfterChange.replace("worksheet", "timesheet");
 					}
-					out.println(getTodaysWorkHr);
+
+					// displaying updated string to the console
+					out.println(stringAfterChange);
 				} else {
+
+					// Display the department name
 					out.println(" Welcome to " + department.departmentName().trim());
 				}
 
-				if (department instanceof TechDepartment) {
-					String s = department.getTodaysWork().trim();
-					if (s.contains("module")) {
-						s = s.replace("module", "Module");
-					}
-					out.println(s);
-				} else if (department instanceof AdminDepartment) {
-					String getTodaysWorkAdmin = department.getTodaysWork().trim();
-					int lastIndexOfSpace= getTodaysWorkAdmin.lastIndexOf(" ");
-					getTodaysWorkAdmin = getTodaysWorkAdmin.substring(0,lastIndexOfSpace+1)+getTodaysWorkAdmin.substring(lastIndexOfSpace+1).toLowerCase();
-					out.println(getTodaysWorkAdmin);
-				}
-
-				out.println(department.getWorkDeadLine().trim());
-
+				// Mainly for TechDepartment
 				if (department instanceof TechDepartment tech) {
+
+					// storing updated string after removing trailing and leading whitespace
+					stringAfterChange = department.getTodaysWork().trim();
+
+					// We are storing the second last index Of the character space
+					int secondLastIndexOfSpace = stringAfterChange.lastIndexOf(" ",stringAfterChange.lastIndexOf(" ") - 1);
+
+					// storing updated string
+					stringAfterChange = stringAfterChange.substring(0, secondLastIndexOfSpace + 1)
+							+ Main.toTitleCase(stringAfterChange.substring(secondLastIndexOfSpace + 1));
+
+					// displaying it to the console
+					out.println(stringAfterChange);
+
 					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
 				}
 
+				// For Admin Department only
+				else if (department instanceof AdminDepartment) {
+
+					// storing updated string after removing trailing and leading whitespace
+					stringAfterChange = department.getTodaysWork().trim();
+
+					// We are storing the last index Of the character space
+					lastIndexOfSpace = stringAfterChange.lastIndexOf(" ");
+
+					// storing updated string as per given problem
+					stringAfterChange = stringAfterChange.substring(0, lastIndexOfSpace + 1)
+							+ stringAfterChange.substring(lastIndexOfSpace + 1).toLowerCase();
+
+					// displaying the modified string to the console
+					out.println(stringAfterChange);
+				}
+
+				// displaying the deadline details
+				out.println(department.getWorkDeadLine().trim());
+
 				String isTodayAHoliday = department.isTodayAHoliday().trim();
-				int lastIndexOfSpace = isTodayAHoliday.lastIndexOf(" ");
+				lastIndexOfSpace = isTodayAHoliday.lastIndexOf(" ");
+				
+				// For displaying whether today is a holiday or not
 				out.println((isTodayAHoliday.substring(0, lastIndexOfSpace + 1)
 						+ Main.toTitleCase(isTodayAHoliday.substring(lastIndexOfSpace + 1))));
 				return true;
@@ -116,7 +161,8 @@ public class Main {
 		 * add as many department as we want that extends SuperDepartment
 		 * 
 		 */
-		SuperDepartment[] departments = { new AdminDepartment(), new HrDepartment(), new TechDepartment() };
+		SuperDepartment[] departments = { new SuperDepartment(), new AdminDepartment(), new HrDepartment(),
+				new TechDepartment() };
 
 		out.println();
 
