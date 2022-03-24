@@ -18,7 +18,7 @@ import static java.lang.System.out;
 
 public class Main {
 
-	// To store the total number of departments
+	// To store the total number of departments that extends SuperDepartment
 	private static int count;
 
 	// To convert a String to title case
