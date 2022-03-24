@@ -11,7 +11,6 @@ package com.greatlearning.assignment2.driver;
 
 import com.greatlearning.assignment2.admindepartment.AdminDepartment;
 import com.greatlearning.assignment2.hrdepartment.HrDepartment;
-import com.greatlearning.assignment2.itdepartment.IT;
 import com.greatlearning.assignment2.superdepartment.SuperDepartment;
 import com.greatlearning.assignment2.techdepartment.TechDepartment;
 
@@ -32,7 +31,7 @@ public class Main {
 	private static boolean printDetails(SuperDepartment department) {
 
 		if (department != null) {
-			if (department instanceof HrDepartment || department instanceof TechDepartment || department instanceof AdminDepartment) {
+			if (department instanceof SuperDepartment) {
 				if (department instanceof HrDepartment hr) {
 					out.println(" Welcome to HR Department");
 					out.println(hr.doActivity());
