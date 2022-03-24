@@ -15,7 +15,7 @@ public class HrDepartment extends SuperDepartment {
 	
 	@Override
 	public String getTodaysWork() {
-		return " Fill today’s timesheet and mark your attendance";
+		return " Fill today’s worksheet and mark your attendance";
 	}
 	
 	@Override
