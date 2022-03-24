@@ -23,6 +23,7 @@ public class Main {
 
 	// To convert a String to title case
 	private static String toTitleCase(String s) {
+
 		if (s != null) {
 			s = s.trim();
 			if (s.length() > 1) {
@@ -75,11 +76,12 @@ public class Main {
 				// For HrDepartment
 				if (department instanceof HrDepartment hr) {
 
-					//storing the department name after removing all the trailing and leading whitespace
+					// storing the department name after removing all the trailing and leading
+					// whitespace
 					departmentName = hr.departmentName().trim();
-					
+
 					lastIndexOfSpace = departmentName.indexOf(" ");
-					
+
 					// displaying the department name of the HR Department
 					out.println(" Welcome to " + (departmentName.substring(0, lastIndexOfSpace).toUpperCase()
 							+ departmentName.substring(lastIndexOfSpace)));
@@ -110,7 +112,8 @@ public class Main {
 					stringAfterChange = department.getTodaysWork().trim();
 
 					// We are storing the second last index Of the character space
-					int secondLastIndexOfSpace = stringAfterChange.lastIndexOf(" ",stringAfterChange.lastIndexOf(" ") - 1);
+					int secondLastIndexOfSpace = stringAfterChange.lastIndexOf(" ",
+							stringAfterChange.lastIndexOf(" ") - 1);
 
 					// storing updated string
 					stringAfterChange = stringAfterChange.substring(0, secondLastIndexOfSpace + 1)
@@ -119,7 +122,7 @@ public class Main {
 					// displaying it to the console
 					out.println(stringAfterChange);
 
-					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
+					//out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
 				}
 
 				// For Admin Department only
@@ -141,10 +144,15 @@ public class Main {
 
 				// displaying the deadline details
 				out.println(department.getWorkDeadLine().trim());
+				
+				//mainly to print TechDepartment  specific methods
+				if(department instanceof TechDepartment tech) {
+					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
+				}
 
 				String isTodayAHoliday = department.isTodayAHoliday().trim();
 				lastIndexOfSpace = isTodayAHoliday.lastIndexOf(" ");
-				
+
 				// For displaying whether today is a holiday or not
 				out.println((isTodayAHoliday.substring(0, lastIndexOfSpace + 1)
 						+ Main.toTitleCase(isTodayAHoliday.substring(lastIndexOfSpace + 1))));
