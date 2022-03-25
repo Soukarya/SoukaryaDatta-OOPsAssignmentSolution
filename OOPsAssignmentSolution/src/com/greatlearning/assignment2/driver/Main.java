@@ -2,8 +2,8 @@
  * 
  * JDK : 17, JRE: 17
  * Author : Soukarya Datta
- * Version: 1.2.2
- * Date: March 24, 2022
+ * Version: 1.2.3
+ * Date: March 25, 2022
  * 
  */
 
@@ -25,19 +25,49 @@ public class Main {
 	private static String toTitleCase(String s) {
 
 		if (s != null) {
+			
+			// removing all the trailing and leading whitespace
 			s = s.trim();
+			
+			//checking if the length of the string is greater than 1 or not
 			if (s.length() > 1) {
 
+				// converting the string to lowercase
 				s = s.toLowerCase();
-				String[] parts = s.split(" ");
-				StringBuilder sb = new StringBuilder(s.length());
-				for (String part : parts) {
-					sb.append(part.substring(0, 1).toUpperCase()).append(part.substring(1));
-					if (parts.length > 1) {
-						sb.append(" ");
+				
+				//checking whether the string contains space. If there is a space that means the string more than one word
+				if(s.contains(" ")) {
+					
+					//this variable is used to store count of words present in a given string
+					int countOfWords = 0;
+					
+					// splitting the string based on space
+					String[] parts = s.split(" ");
+					
+					StringBuilder sb = new StringBuilder(s.length());
+					
+					// iterating through each word
+					for (String part : parts) {
+						countOfWords++;
+						
+						// this check is mainly to avoid redundant consecutive spaces
+						if(part.length() != 0) {
+							
+							// this check is mainly to prevent StringIndexOutOfBoundsException
+							if(part.length()>1) {
+								sb.append(part.substring(0,1).toUpperCase()).append(part.substring(1));
+							}else if(part.length()==1) {
+								sb.append(part.toUpperCase());
+							}
+							if (!(parts.length == countOfWords)) {
+								sb.append(" ");
+							}
+						}
 					}
+					return sb.toString();
+				}else {
+					return s.substring(0,1).toUpperCase()+s.substring(1);
 				}
-				return sb.toString();
 			} else if (s.length() == 1) {
 				return s.toUpperCase();
 			} else {
@@ -90,7 +120,10 @@ public class Main {
 					// storing updated string after removing trailing and leading whitespace
 					stringAfterChange = department.getTodaysWork().trim();
 
-					// Replacing worksheet work with timesheet in a string
+					/* Replacing worksheet work with timesheet in a string
+					*  I think there is a typo in the question and since the expected output
+					*  is asking us to print timesheet and so I am using replace() function
+					*/
 					if (stringAfterChange.contains("worksheet")) {
 						stringAfterChange = stringAfterChange.replace("worksheet", "timesheet");
 					}
