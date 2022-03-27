@@ -172,11 +172,11 @@ public class Main {
 				}
 
 				// displaying the deadline details
-				out.println(department.getWorkDeadLine().trim());
+				out.println(department.getWorkDeadLine().stripLeading());
 				
 				//mainly to print TechDepartment specific methods
 				if(department instanceof TechDepartment tech) {
-					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim());
+					out.println(" " + Main.toTitleCase(tech.getStackTechInformation()).trim()+" ");
 				}
 
 				String isTodayAHoliday = department.isTodayAHoliday().trim();
